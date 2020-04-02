@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="56a21301-1ebc-4b3c-b049-4c01af558000" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Ronicley.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backend-enadedm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend-enadedm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/RenatoMAlves/backend-enadedm.git" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Z3AxMX26YyV9wwhBbexMWI94jC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alexandre Matos\Documents\Projetos\backend-enadedm\backup db" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="56a21301-1ebc-4b3c-b049-4c01af558000" name="Default Changelist" comment="" />
+      <created>1554724610659</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1554724610659</updated>
+      <workItem from="1584057664746" duration="420000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="390" y="156" key="SettingsEditor" timestamp="1585311326228">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-1339" y="183" key="SettingsEditor/0.0.1920.1050/-1680.31.1680.1020@-1680.31.1680.1020" timestamp="1584570595708" />
+    <state x="390" y="156" key="SettingsEditor/0.0.1920.1050/-1680.31.1680.1020@0.0.1920.1050" timestamp="1585311326228" />
+    <state x="-1164" y="365" key="com.intellij.ide.util.TipDialog" timestamp="1584570385820">
+      <screen x="-1680" y="31" width="1680" height="1020" />
+    </state>
+    <state x="-1164" y="365" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/-1680.31.1680.1020@-1680.31.1680.1020" timestamp="1584570385820" />
+    <state x="613" y="111" width="694" height="828" key="find.popup" timestamp="1584965565661">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-1144" y="139" width="607" height="804" key="find.popup/0.0.1920.1050/-1680.31.1680.1020@-1680.31.1680.1020" timestamp="1584575283930" />
+    <state x="613" y="111" width="694" height="828" key="find.popup/0.0.1920.1050/-1680.31.1680.1020@0.0.1920.1050" timestamp="1584965565661" />
+  </component>
+</project>
