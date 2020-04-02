@@ -13,4 +13,5 @@ urlpatterns = [
     path('resultados/<int:ano>/<int:curso>/<int:area>', views.ResultByAnoCursoAndArea.as_view()),
     path('resultados-associacao/<int:ano>/<int:id_curso>', views.Ft_associacaoList.as_view()),
     path('errosbyregion/<int:id_regiao>/<int:id_curso>', views.ResultForCourseThatHadMoreErrorsByRegion.as_view()),
+    path('hitsbyregion/<int:id_regiao>/<int:id_curso>', views.ResultForCourseThatHadMoreHitsByRegion.as_view()),
 ]

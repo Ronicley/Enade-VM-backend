@@ -9,6 +9,13 @@ class ErrosRigaoByCurso(serializers.Serializer):
     qtd_questoes = serializers.IntegerField()
     qtd_erradas = serializers.IntegerField()
 
+class HitsRigaoByCurso(serializers.Serializer):
+    ano = serializers.SlugRelatedField(slug_field='ano', read_only=True)
+    id_curso = serializers.SlugRelatedField(slug_field='id', read_only=True)
+    id_regiao = serializers.SlugRelatedField(slug_field='regiao', read_only=True)
+    volume_incidencias = serializers.IntegerField()
+    qtd_questoes = serializers.IntegerField()
+    qtd_certas = serializers.IntegerField()
 
 class ResultadoSerializer(serializers.Serializer):
     ano = serializers.SlugRelatedField(slug_field='ano', read_only=True)

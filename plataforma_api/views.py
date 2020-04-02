@@ -47,6 +47,18 @@ class ResultForCourseThatHadMoreErrorsByRegion(generics.ListAPIView):
         return objetos.filter(id_regiao=regiao).filter(porcentagem_erradas__gt=0.0).filter(id_curso=curso)
 
 
+class ResultForCourseThatHadMoreHitsByRegion(generics.ListAPIView):
+    serializer_class = HitsRigaoByCurso
+
+    def get_queryset(self):
+        regiao = self.kwargs['id_regiao']
+        curso = self.kwargs['id_curso']
+        ftResult = Ft_resultado
+        objetos = ftResult.objects
+
+        return objetos.filter(id_regiao=regiao).filter(porcentagem_certas__gt=0.0).filter(id_curso=curso)
+
+
 class ResultByAnoAndCurso(generics.ListAPIView):
     serializer_class = ResultadoSerializer
 
