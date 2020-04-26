@@ -1,8 +1,12 @@
+import json
+
 from rest_framework import generics
-from django.db.models import Q
+from django.db.models import Q, Sum
 from plataforma_api.serializers import *
 from .models import Ft_resultado, Dim_area_enquadramento, Dim_curso, Dim_regiao, \
     Dim_ano, Ft_associacao
+from django.http import JsonResponse
+from django.http import HttpResponse
 
 
 class ResultList(generics.ListAPIView):
@@ -77,6 +81,33 @@ class ResultByAnoCursoAndArea(generics.ListAPIView):
         area = self.kwargs['area']
         return Ft_resultado.objects.filter(ano=ano).filter(id_curso=curso).filter(id_area=area).order_by('qtd_certas',
                                                                                                          'qtd_erradas')
+
+
+class ResultNumberOfQuestionsByArea(generics.ListAPIView):
+    serializer_class = ResultadoSerializer
+
+    def get(self, request, *args, **kwargs):
+        list = []
+        for i in (range(1, 13)):
+            total = Ft_resultado.objects.filter(id_area=i).aggregate(qtd_questoes=Sum('qtd_questoes'))
+            list.append(
+                json.loads(
+                    '{"area":' + str(i) + ', ' + str(total).replace('{', '').replace('}', '').replace("'", '"') + '}'
+                )
+            )
+        print(list)
+        return JsonResponse(list, safe=False)
+
+
+class ResultByAno(generics.ListCreateAPIView):
+    serializer_class = ResultadoSerializerAno
+
+    def get(self, request, *args, **kwargs):
+        ano = self.kwargs['ano']
+        total = Ft_resultado.objects.filter(ano=ano).aggregate(volume_incidencias=Sum('volume_incidencias'))
+        result = json.loads(
+            '{"ano":' + str(ano) + ', ' + str(total).replace('{', '').replace('}', '').replace("'", '"') + '}')
+        return JsonResponse(result)
 
 
 class AreaList(generics.ListAPIView):

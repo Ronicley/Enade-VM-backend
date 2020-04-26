@@ -9,6 +9,7 @@ class ErrosRigaoByCurso(serializers.Serializer):
     qtd_questoes = serializers.IntegerField()
     qtd_erradas = serializers.IntegerField()
 
+
 class HitsRigaoByCurso(serializers.Serializer):
     ano = serializers.SlugRelatedField(slug_field='ano', read_only=True)
     id_curso = serializers.SlugRelatedField(slug_field='id', read_only=True)
@@ -16,6 +17,24 @@ class HitsRigaoByCurso(serializers.Serializer):
     volume_incidencias = serializers.IntegerField()
     qtd_questoes = serializers.IntegerField()
     qtd_certas = serializers.IntegerField()
+
+
+class ResultadoSerializerAno(serializers.Serializer):
+    ano = serializers.SlugRelatedField(slug_field='ano', read_only=True)
+    volume_incidencias = serializers.IntegerField()
+
+    class Meta:
+        model = Ft_resultado
+        fields = ('volume_incidencias', 'ano')
+
+
+class ResultadoSerializerByAreaQuestions(serializers.Serializer):
+    id_area = serializers.SlugRelatedField(slug_field='area', read_only=True)
+    qtd_questoes = serializers.IntegerField()
+
+    class Meta:
+        model = Ft_resultado
+        fields = ('area', 'qtd_questoes')
 
 class ResultadoSerializer(serializers.Serializer):
     ano = serializers.SlugRelatedField(slug_field='ano', read_only=True)
@@ -34,7 +53,7 @@ class ResultadoSerializer(serializers.Serializer):
 
     class Meta:
         model = Ft_resultado
-        fields = ('volume_incidencias', 'volume_incidencias_porcentagem', 'porcentagem_certas')
+        fields = ('volume_incidencias', 'porcentagem_incidencias')
 
 
 class AreaSerializer(serializers.Serializer):
