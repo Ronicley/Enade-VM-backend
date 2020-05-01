@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="56a21301-1ebc-4b3c-b049-4c01af558000" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plataforma_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/plataforma_api/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,5 +85,13 @@
     </state>
     <state x="-1144" y="139" width="607" height="804" key="find.popup/0.0.1920.1050/-1680.31.1680.1020@-1680.31.1680.1020" timestamp="1584575283930" />
     <state x="613" y="111" width="694" height="828" key="find.popup/0.0.1920.1050/-1680.31.1680.1020@0.0.1920.1050" timestamp="1584965565661" />
+    <state x="701" y="168" key="refactoring.ChangeSignatureDialog" timestamp="1587827684114">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="701" y="168" key="refactoring.ChangeSignatureDialog/0.0.1920.1050/-1680.31.1680.1020@0.0.1920.1050" timestamp="1587827684114" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1587820263914">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1680.31.1680.1020@0.0.1920.1050" timestamp="1587820263914" />
   </component>
 </project>

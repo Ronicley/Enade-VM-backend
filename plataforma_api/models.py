@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 class Dim_ano(models.Model):
     ano = models.IntegerField(primary_key=True)
 
@@ -54,8 +55,7 @@ class Ft_resultado(models.Model):
     id_area = models.ForeignKey(Dim_area_enquadramento, related_name='id_area', on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{} - {} ({})".format(self.ano, self.id_area, self.id_regiao)
-
+        return "{} - {}".format(self.ano, self.volume_incidencias)
 
 
 class Ft_associacao(models.Model):
