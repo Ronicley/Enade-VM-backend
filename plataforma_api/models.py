@@ -1,5 +1,5 @@
 from django.db import models
-import json
+
 
 
 class Dim_ano(models.Model):

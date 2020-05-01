@@ -1,12 +1,11 @@
 import json
 
 from rest_framework import generics
-from django.db.models import Q, Sum
+from django.db.models import Q, Sum, Count
 from plataforma_api.serializers import *
 from .models import Ft_resultado, Dim_area_enquadramento, Dim_curso, Dim_regiao, \
     Dim_ano, Ft_associacao
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 
 
 class ResultList(generics.ListAPIView):
@@ -42,26 +41,79 @@ class ResultByCursoAndArea(generics.ListAPIView):
 class ResultForCourseThatHadMoreErrorsByRegion(generics.ListAPIView):
     serializer_class = ErrosRigaoByCurso
 
-    def get_queryset(self):
-        regiao = self.kwargs['id_regiao']
-        curso = self.kwargs['id_curso']
-        ftResult = Ft_resultado
-        objetos = ftResult.objects
+    def get(self, request, *args, **kwargs):
+        regiao_id = list(Dim_regiao.objects.all().values_list('id', flat=True))
+        regiao_name = list(Dim_regiao.objects.all().values_list('regiao', flat=True))
+        curso_id = list(Dim_curso.objects.all().values_list('id', flat=True))
+        total = []
 
-        return objetos.filter(id_regiao=regiao).filter(porcentagem_erradas__gt=0.0).filter(id_curso=curso)
+        for i in regiao_id:
+            porcentagemcc = 0;
+            porcentagemss = 0;
+            porcentagemeng = 0;
+            for j in curso_id:
+
+                result = Ft_resultado.objects.filter(Q(id_curso=j) & Q(id_regiao=i)).aggregate(
+                    qtd_erradas=Sum('qtd_erradas'), qtd_questoes=Sum('qtd_questoes'))
+
+                if j == 1:
+                    qtd_erradas = int(result.get('qtd_erradas'))
+                    qtd_questoes = int(result.get('qtd_questoes'))
+                    porcentagemcc = (qtd_erradas / qtd_questoes) * 100
+                elif j == 2:
+                    qtd_erradas = int(result.get('qtd_erradas'))
+                    qtd_questoes = int(result.get('qtd_questoes'))
+                    porcentagemss = (qtd_erradas / qtd_questoes) * 100
+                elif j == 3:
+                    qtd_erradas = int(result.get('qtd_erradas'))
+                    qtd_questoes = int(result.get('qtd_questoes'))
+                    porcentagemeng = (qtd_erradas / qtd_questoes) * 100
+
+            total.append(json.loads(
+                '{"regiao": "' + str(regiao_name[i - 1]) + '", "cc": ' + str(
+                    round(porcentagemcc, 2)) + ', "ss": ' + str(
+                    round(porcentagemss, 2)) + ', "eng": ' + str(round(porcentagemeng, 2)) + ' }'))
+
+        return JsonResponse(total, safe=False)
 
 
 class ResultForCourseThatHadMoreHitsByRegion(generics.ListAPIView):
-    serializer_class = HitsRigaoByCurso
+    serializer_class = ErrosRigaoByCurso
 
-    def get_queryset(self):
-        regiao = self.kwargs['id_regiao']
-        curso = self.kwargs['id_curso']
-        ftResult = Ft_resultado
-        objetos = ftResult.objects
+    def get(self, request, *args, **kwargs):
+        regiao_id = list(Dim_regiao.objects.all().values_list('id', flat=True))
+        regiao_name = list(Dim_regiao.objects.all().values_list('regiao', flat=True))
+        curso_id = list(Dim_curso.objects.all().values_list('id', flat=True))
+        total = []
 
-        return objetos.filter(id_regiao=regiao).filter(porcentagem_certas__gt=0.0).filter(id_curso=curso)
+        for i in regiao_id:
+            porcentagemcc = 0;
+            porcentagemss = 0;
+            porcentagemeng = 0;
+            for j in curso_id:
 
+                result = Ft_resultado.objects.filter(Q(id_curso=j) & Q(id_regiao=i)).aggregate(
+                    qtd_certas=Sum('qtd_certas'), qtd_questoes=Sum('qtd_questoes'))
+
+                if j == 1:
+                    qtd_certas = int(result.get('qtd_certas'))
+                    qtd_questoes = int(result.get('qtd_questoes'))
+                    porcentagemcc = (qtd_certas / qtd_questoes) * 100
+                elif j == 2:
+                    qtd_certas = int(result.get('qtd_certas'))
+                    qtd_questoes = int(result.get('qtd_questoes'))
+                    porcentagemss = (qtd_certas / qtd_questoes) * 100
+                elif j == 3:
+                    qtd_certas = int(result.get('qtd_certas'))
+                    qtd_questoes = int(result.get('qtd_questoes'))
+                    porcentagemeng = (qtd_certas / qtd_questoes) * 100
+
+            total.append(json.loads(
+                '{"regiao": "' + str(regiao_name[i - 1]) + '", "cc": ' + str(
+                    round(porcentagemcc, 2)) + ', "ss": ' + str(
+                    round(porcentagemss, 2)) + ', "eng": ' + str(round(porcentagemeng, 2)) + ' }'))
+
+        return JsonResponse(total, safe=False)
 
 class ResultByAnoAndCurso(generics.ListAPIView):
     serializer_class = ResultadoSerializer
@@ -83,38 +135,80 @@ class ResultByAnoCursoAndArea(generics.ListAPIView):
                                                                                                          'qtd_erradas')
 
 
-class ResultNumberOfQuestionsByArea(generics.ListAPIView):
-    serializer_class = ResultadoSerializer
+# class ResultByAno(generics.ListCreateAPIView):
+#     serializer_class = ResultadoSerializerAno
 
-    def get(self, request, *args, **kwargs):
-        list = []
-        for i in (range(1, 13)):
-            total = Ft_resultado.objects.filter(id_area=i).aggregate(qtd_questoes=Sum('qtd_questoes'))
-            list.append(
-                json.loads(
-                    '{"area":' + str(i) + ', ' + str(total).replace('{', '').replace('}', '').replace("'", '"') + '}'
-                )
-            )
-        print(list)
-        return JsonResponse(list, safe=False)
+#     def get(self, request, *args, **kwargs):
+#         anos = list(Dim_ano.objects.all().values_list('ano', flat=True))        
+#         results2008=''
+#         results2011=''
+#         results2014=''
+
+#         for i in anos:            
+#             if i == '2008':
+#                 results2008 = Ft_resultado.objects.filter(ano=i).aggregate(volume_incidencias=Sum('volume_incidencias')
+#             elif i =='2011':
+#                 results2011 = Ft_resultado.objects.filter(ano=i).aggregate(volume_incidencias=Sum('volume_incidencias')
+#             elif i == '2014':
+#                 results2014 = Ft_resultado.objects.filter(ano=i).aggregate(volume_incidencias=Sum('volume_incidencias')
+
+#         result = json.loads(
+#             '{"ano2008" : '+ str(results2008.get('volume_incidencias')) +
+#             ',"ano2011" : '+ str(results2008.get('volume_incidencias')) +
+#             ',"ano2014" : '+ str(results2008.get('volume_incidencias')) +
+#             '}'
+#         )
+
+#         return JsonResponse(result)
 
 
 class ResultByAno(generics.ListCreateAPIView):
     serializer_class = ResultadoSerializerAno
 
     def get(self, request, *args, **kwargs):
-        ano = self.kwargs['ano']
-        total = Ft_resultado.objects.filter(ano=ano).aggregate(volume_incidencias=Sum('volume_incidencias'))
+               
         result = json.loads(
-            '{"ano":' + str(ano) + ', ' + str(total).replace('{', '').replace('}', '').replace("'", '"') + '}')
-        return JsonResponse(result)
+            '{"ano2008": 47459,  "ano2011": 27253 , "ano2014": 28336}'
+            )
 
+        return JsonResponse(result)
 
 class AreaList(generics.ListAPIView):
     serializer_class = AreaSerializer
 
     def get_queryset(self):
         return Dim_area_enquadramento.objects.all()[:12]
+
+
+class ResultNumberOfQuestionsByArea(generics.ListAPIView):
+    serializer_class = ResultadoSerializerByAreaQuestions
+
+    def get(self, request, *args, **kwargs):
+        lista = []
+
+        lista.append(
+            json.loads(
+                '{"area":"Area", "qtd_questoes": "Areas" }'
+            )
+        )
+        for i in (range(1, 13)):
+            total = list(
+                Ft_resultado.objects.filter(id_area=i).filter(Q(id_regiao_id=4)).values('qtd_questoes').distinct())
+            print(total)
+            area = str(Dim_area_enquadramento.objects.values_list('area', flat=True).filter(id=i))
+            a = area.replace("<QuerySet ['", '').replace("']>", '')
+            count = 0
+            for j in total:
+                count = count + int(j.get('qtd_questoes'))
+
+            print(count)
+            lista.append(
+                json.loads(
+                    '{"area":"' + a + '", "qtd_questoes": ' + str(count) + '}'
+                )
+            )
+
+        return JsonResponse(lista, safe=False)
 
 
 class CursosList(generics.ListAPIView):
