@@ -275,32 +275,32 @@ class ResultStudentsByAno(generics.ListAPIView):
         return JsonResponse(result, safe=False)
 
 
-class ResultStudentsByAno(generics.ListAPIView):
-    serializer_class = ResultadoSerializer
+# class ResultStudentsByAno(generics.ListAPIView):
+#     serializer_class = ResultadoSerializer
 
-    def get(self, request, *args, **kwargs):
-        ano = self.kwargs['ano']
-        regions = list(Dim_regiao.objects.all().values_list('id', flat=True))
-        regions_name = list(Dim_regiao.objects.all().values_list('regiao', flat=True))
-        result = []
-        if ano == 1:
-            for i in regions:
-                results = Ft_resultado.objects.filter(Q(id_regiao=i)).aggregate(volume_incidencias=Sum('volume_incidencias')
-                )
-                result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}'))
-        elif ano == 2008:
-            for i in regions:
-                results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
-                result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str( results.get('volume_incidencias')) + '}'))
-        elif ano == 2011:
-            for i in regions:
-                results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
-                result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}'))
-        elif ano == 2014:
-            for i in regions:
-                results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
-                result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}' ))
-        return JsonResponse(result, safe=False)
+#     def get(self, request, *args, **kwargs):
+#         ano = self.kwargs['ano']
+#         regions = list(Dim_regiao.objects.all().values_list('id', flat=True))
+#         regions_name = list(Dim_regiao.objects.all().values_list('regiao', flat=True))
+#         result = []
+#         if ano == 1:
+#             for i in regions:
+#                 results = Ft_resultado.objects.filter(Q(id_regiao=i)).aggregate(volume_incidencias=Sum('volume_incidencias')
+#                 )
+#                 result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}'))
+#         elif ano == 2008:
+#             for i in regions:
+#                 results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
+#                 result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str( results.get('volume_incidencias')) + '}'))
+#         elif ano == 2011:
+#             for i in regions:
+#                 results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
+#                 result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}'))
+#         elif ano == 2014:
+#             for i in regions:
+#                 results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
+#                 result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}' ))
+#         return JsonResponse(result, safe=False)
 
 
 class ResultNumberOfQuestionsByArea(generics.ListAPIView):
