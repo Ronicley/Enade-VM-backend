@@ -13,7 +13,8 @@ urlpatterns = [
     path('resultados/<int:ano>/<int:id_curso>', views.ResultByAnoAndCurso.as_view()),
     path('resultados/<int:ano>/<int:curso>/<int:area>', views.ResultByAnoCursoAndArea.as_view()),
     path('resultados-associacao/<int:ano>/<int:id_curso>', views.Ft_associacaoList.as_view()),
-    path('errosbyregion', views.ResultForCourseThatHadMoreErrorsByRegion.as_view()),
-    path('hitsbyregion', views.ResultForCourseThatHadMoreHitsByRegion.as_view()),
+    path('errosbyregion/<int:ano>', views.ResultForCourseThatHadMoreErrorsByRegion.as_view()),
+    path('hitsbyregion/<int:ano>', views.ResultForCourseThatHadMoreHitsByRegion.as_view()),
     path('number-of-questions-by-area', views.ResultNumberOfQuestionsByArea.as_view()),
+    path('students-by-region/<int:ano>', views.ResultStudentsByAno.as_view()),
 ]
