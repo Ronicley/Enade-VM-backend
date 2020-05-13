@@ -308,35 +308,51 @@ class ResultStudentsByAno(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         ano = self.kwargs['ano']
+        province = self.kwargs['province']
         result = []
 
         if ano == 1:
-            result.append(json.loads('{"norte" : 5811 }'))
-            result.append(json.loads('{"nordeste" : 16303 }'))
-            result.append(json.loads('{"centrooeste" : 9968 }'))
-            result.append(json.loads('{"sudeste" :  53096}'))
-            result.append(json.loads('{"sul" : 17881 }'))
+
+            if province == 2:
+                result.append(json.loads('{"brasil" : 103059 }'))
+            else:
+                result.append(json.loads('{"norte" : 5811 }'))
+                result.append(json.loads('{"nordeste" : 16303 }'))
+                result.append(json.loads('{"centrooeste" : 9968 }'))
+                result.append(json.loads('{"sudeste" :  53096}'))
+                result.append(json.loads('{"sul" : 17881 }'))
 
         elif ano == 2008:
-            result.append(json.loads('{"norte" : 2338 }'))
-            result.append(json.loads('{"nordeste" : 6404 }'))
-            result.append(json.loads('{"centrooeste" : 4728 }'))
-            result.append(json.loads('{"sudeste" :  25269}'))
-            result.append(json.loads('{"sul" : 8724 }'))
+
+            if province == 2:
+                result.append(json.loads('{"brasil" : 47463 }'))
+            else:
+                result.append(json.loads('{"norte" : 2338 }'))
+                result.append(json.loads('{"nordeste" : 6404 }'))
+                result.append(json.loads('{"centrooeste" : 4728 }'))
+                result.append(json.loads('{"sudeste" :  25269}'))
+                result.append(json.loads('{"sul" : 8724 }'))
 
         elif ano == 2011:
-            result.append(json.loads('{"norte" : 1330 }'))
-            result.append(json.loads('{"nordeste" : 4383 }'))
-            result.append(json.loads('{"centrooeste" : 2660 }'))
-            result.append(json.loads('{"sudeste" :  14439}'))
-            result.append(json.loads('{"sul" : 4445 }'))
+
+            if province == 2:
+                result.append(json.loads('{"brasil" : 27257 }'))
+            else:
+                result.append(json.loads('{"norte" : 1330 }'))
+                result.append(json.loads('{"nordeste" : 4383 }'))
+                result.append(json.loads('{"centrooeste" : 2660 }'))
+                result.append(json.loads('{"sudeste" :  14439}'))
+                result.append(json.loads('{"sul" : 4445 }'))
 
         elif ano == 2014:
-            result.append(json.loads('{"norte" : 2143 }'))
-            result.append(json.loads('{"nordeste" : 5517 }'))
-            result.append(json.loads('{"centrooeste" : 2580 }'))
-            result.append(json.loads('{"sudeste" :  13388}'))
-            result.append(json.loads('{"sul" : 4712 }'))
+            if province == 2:
+                result.append(json.loads('{"brasil" : 28340 }'))
+            else:
+                result.append(json.loads('{"norte" : 2143 }'))
+                result.append(json.loads('{"nordeste" : 5517 }'))
+                result.append(json.loads('{"centrooeste" : 2580 }'))
+                result.append(json.loads('{"sudeste" :  13388}'))
+                result.append(json.loads('{"sul" : 4712 }'))
 
         return JsonResponse(result, safe=False)
 
@@ -367,7 +383,6 @@ class ResultStudentsByAno(generics.ListAPIView):
 #                 results = Ft_resultado.objects.filter(Q(id_regiao=i) & Q(ano=ano)).aggregate(volume_incidencias=Sum('volume_incidencias'))
 #                 result.append(json.loads('{"' + str(regions_name[i - 1]).replace('-', '').lower() + '" : ' + str(results.get('volume_incidencias')) + '}' ))
 #         return JsonResponse(result, safe=False)
-
 
 class ResultNumberOfQuestionsByArea(generics.ListAPIView):
     serializer_class = ResultadoSerializerByAreaQuestions
