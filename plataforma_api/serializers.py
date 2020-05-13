@@ -1,6 +1,9 @@
 from .models import Ft_resultado, Dim_area_enquadramento, Dim_curso, Dim_regiao, Dim_ano, Ft_associacao
 from rest_framework import serializers
 
+class AreasByCoursers(serializers.Serializer):
+    id_curso = serializers.SlugRelatedField(slug_field='id', read_only=True)
+    id_area = serializers.SlugRelatedField(slug_field='area', read_only=True)
 
 class ErrosRigaoByCurso(serializers.Serializer):
     id_curso = serializers.SlugRelatedField(slug_field='id', read_only=True)
