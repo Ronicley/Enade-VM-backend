@@ -172,6 +172,72 @@ class ResultForCourseThatHadMoreHitsByRegion(generics.ListAPIView):
         return JsonResponse(total, safe=False)
 
 
+class ResultForCourseThatHadMoreNullsByRegion(generics.ListAPIView):
+    serializer_class = ErrosRigaoByCurso
+
+    def get(self, request, *args, **kwargs):
+        regiao_id = list(Dim_regiao.objects.all().values_list('id', flat=True))
+        regiao_name = list(Dim_regiao.objects.all().values_list('regiao', flat=True))
+        curso_id = list(Dim_curso.objects.all().values_list('id', flat=True))
+        total = []
+        porcentagemcc = 0
+        porcentagemss = 0
+        porcentagemeng = 0
+        year = self.kwargs['ano']
+
+        if (year == 1):
+
+            for i in regiao_id:
+
+                for j in curso_id:
+
+                    result = Ft_resultado.objects.filter(Q(id_curso=j) & Q(id_regiao=i)).aggregate(
+                        qtd_branco_invalidas=Sum('qtd_branco_invalidas'), qtd_questoes=Sum('qtd_questoes'))
+
+                    if j == 1:
+                        qtd_branco_invalidas = int(result.get('qtd_branco_invalidas'))
+                        qtd_questoes = int(result.get('qtd_questoes'))
+                        porcentagemcc = (qtd_branco_invalidas / qtd_questoes) * 100
+                    elif j == 2:
+                        qtd_branco_invalidas = int(result.get('qtd_branco_invalidas'))
+                        qtd_questoes = int(result.get('qtd_questoes'))
+                        porcentagemss = (qtd_branco_invalidas / qtd_questoes) * 100
+                    elif j == 3:
+                        qtd_branco_invalidas = int(result.get('qtd_branco_invalidas'))
+                        qtd_questoes = int(result.get('qtd_questoes'))
+                        porcentagemeng = (qtd_branco_invalidas / qtd_questoes) * 100
+
+                total.append(json.loads(
+                    '{"regiao": "' + str(regiao_name[i - 1]) + '", "cc": ' + str(
+                        round(porcentagemcc, 2)) + ', "ss": ' + str(
+                        round(porcentagemss, 2)) + ', "eng": ' + str(round(porcentagemeng, 2)) + ' }'))
+        else:
+            for i in regiao_id:
+                for j in curso_id:
+                    result = Ft_resultado.objects.filter(Q(id_curso=j) & Q(id_regiao=i) & Q(ano=year)).aggregate(
+                        qtd_branco_invalidas=Sum('qtd_branco_invalidas'), qtd_questoes=Sum('qtd_questoes'))
+
+                    if j == 1:
+                        qtd_branco_invalidas = int(result.get('qtd_branco_invalidas'))
+                        qtd_questoes = int(result.get('qtd_questoes'))
+                        porcentagemcc = (qtd_branco_invalidas / qtd_questoes) * 100
+                    elif j == 2:
+                        qtd_branco_invalidas = int(result.get('qtd_branco_invalidas'))
+                        qtd_questoes = int(result.get('qtd_questoes'))
+                        porcentagemss = (qtd_branco_invalidas / qtd_questoes) * 100
+                    elif j == 3:
+                        qtd_branco_invalidas = int(result.get('qtd_branco_invalidas'))
+                        qtd_questoes = int(result.get('qtd_questoes'))
+                        porcentagemeng = (qtd_branco_invalidas / qtd_questoes) * 100
+
+                total.append(json.loads(
+                    '{"regiao": "' + str(regiao_name[i - 1]) + '", "cc": ' + str(
+                        round(porcentagemcc, 2)) + ', "ss": ' + str(
+                        round(porcentagemss, 2)) + ', "eng": ' + str(round(porcentagemeng, 2)) + ' }'))
+
+        return JsonResponse(total, safe=False)
+
+
 class ResultByAnoAndCurso(generics.ListAPIView):
     serializer_class = ResultadoSerializer
 
