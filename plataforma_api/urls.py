@@ -17,7 +17,7 @@ urlpatterns = [
     path('hitsbyregion/<int:ano>', views.ResultForCourseThatHadMoreHitsByRegion.as_view()),
     path('nullsbyregion/<int:ano>', views.ResultForCourseThatHadMoreNullsByRegion.as_view()),
     path('number-of-questions-by-area', views.ResultNumberOfQuestionsByArea.as_view()),
-    path('students-by-region/<int:ano>', views.ResultStudentsByAno.as_view()),
+    path('students-by-region/<int:ano>/<int:province>', views.ResultStudentsByAno.as_view()),
     path('result-by-areas-for-coursers', views.ResultByAreasForCoursers.as_view()),
 
 ]
