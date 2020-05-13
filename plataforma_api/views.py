@@ -50,9 +50,9 @@ class ResultForCourseThatHadMoreErrorsByRegion(generics.ListAPIView):
 
         if (year == 1):
             for i in regiao_id:
-                porcentagemcc = 0;
-                porcentagemss = 0;
-                porcentagemeng = 0;
+                porcentagemcc = 0
+                porcentagemss = 0
+                porcentagemeng = 0
                 for j in curso_id:
 
                     result = Ft_resultado.objects.filter(Q(id_curso=j) & Q(id_regiao=i)).aggregate(
@@ -114,9 +114,9 @@ class ResultForCourseThatHadMoreHitsByRegion(generics.ListAPIView):
         regiao_name = list(Dim_regiao.objects.all().values_list('regiao', flat=True))
         curso_id = list(Dim_curso.objects.all().values_list('id', flat=True))
         total = []
-        porcentagemcc = 0;
-        porcentagemss = 0;
-        porcentagemeng = 0;
+        porcentagemcc = 0
+        porcentagemss = 0
+        porcentagemeng = 0
         year = self.kwargs['ano']
 
         if (year == 1):
@@ -355,3 +355,67 @@ class Ft_associacaoList(generics.ListAPIView):
         curso = self.kwargs['id_curso']
         ano_id = self.kwargs['ano']
         return Ft_associacao.objects.filter(id_curso=curso, ano=ano_id)
+
+
+class ResultByAreasForCoursers(generics.ListAPIView):
+    serializer_class = AreasByCoursers
+
+    def get(self, request, *args, **kwargs):
+
+        idArea = list(Ft_resultado.objects.values_list('id_area', flat=True).filter(id_area_id__lte=12).filter(
+            Q(id_regiao_id=1) & Q(ano_id=2008)))
+
+        idCurso = list(Ft_resultado.objects.values_list('id_curso', flat=True).filter(id_area_id__lte=12).filter(
+            Q(id_regiao_id=1) & Q(ano_id=2008)))
+
+        nameArea = list(Dim_area_enquadramento.objects.all().values_list('area', flat=True))[:12]
+        nameCurso = list(Dim_curso.objects.all().values_list('curso', flat=True))[:3]
+
+        cienciaAreas = []
+        sistemasAreas = []
+        engeAreas = []
+
+        lista = []
+
+        for i in range(len(idCurso)):
+            if idCurso[i] == 1:
+                cienciaAreas.append(idArea[i])
+            elif idCurso[i] == 2:
+                sistemasAreas.append(idArea[i])
+            else:
+                engeAreas.append(idArea[i])
+
+        cienciaAreas = list(dict.fromkeys(cienciaAreas))
+        sistemasAreas = list(dict.fromkeys(sistemasAreas))
+        engeAreas = list(dict.fromkeys(engeAreas))
+
+        area = ''
+
+        for i in cienciaAreas:
+            area += '"' + nameArea[i - 1] + '",'
+
+        lista.append(
+            json.loads(
+                '{"CC": [' + area[:-1].replace(' ', '_') + ']}'
+            )
+        )
+        area = ''
+        for i in sistemasAreas:
+            area += '"' + nameArea[i - 1] + '",'
+
+        lista.append(
+            json.loads(
+                '{"SS": [' + area[:-1].replace(' ', '_') + ']}'
+            )
+        )
+        area = ''
+        for i in engeAreas:
+            area += '"' + nameArea[i - 1] + '",'
+
+        lista.append(
+            json.loads(
+                '{"ENG": [' + area[:-1].replace(' ', '_') + ']}'
+            )
+        )
+
+        return JsonResponse(lista, safe=False)
